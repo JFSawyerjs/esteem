@@ -1,0 +1,202 @@
+<div class="weights-legend">
+
+    <h2>Guida ai PesI (Asset / Weights)</h2>
+
+    <p>
+        Questa sezione descrive in modo approfondito come configurare gli <strong>asset</strong> utilizzati
+        dal motore di stima. Ogni asset rappresenta un tipo di elemento che viene contato nello
+        scanner (file, componenti, occorrenze testuali, ecc.) e contribuisce alla stima finale in giorni/uomo.
+        Le definizioni riportate sono concepite per garantire piena chiarezza anche a utenti non tecnici.
+    </p>
+
+    <hr>
+
+    <h3>1. Nome Asset</h3>
+    <p>
+        Identificatore tecnico dell’asset. Deve essere univoco all’interno del profilo e non deve contenere
+        spazi o caratteri speciali.  
+        È la chiave utilizzata nel file di configurazione e nel calcolo interno.
+    </p>
+    <p><strong>Esempio:</strong> <code>components</code>, <code>services</code>, <code>sqlQueries</code></p>
+
+    <hr>
+
+    <h3>2. Label</h3>
+    <p>
+        Etichetta abbreviata visualizzata nei report HTML e nelle tabelle. Può essere breve e orientata alla leggibilità.
+    </p>
+    <p><strong>Esempio:</strong> <code>Comp</code>, <code>Serv</code>, <code>Query</code></p>
+
+    <hr>
+
+    <h3>3. Enabled</h3>
+    <p>
+        Indica se l’asset deve essere incluso nella scansione.  
+        È utile per configurare asset che potrebbero servire solo in specifici scenari
+        senza dover modificare la struttura del profilo.
+    </p>
+    <p><strong>Valori:</strong> <code>Sì</code> / <code>No</code></p>
+
+    <hr>
+
+    <h3>4. Mode</h3>
+    <p>
+        Definisce il metodo di conteggio da applicare all’asset. Sono disponibili due modalità:
+    </p>
+
+    <ul>
+        <li><strong>glob</strong> – conta i file che corrispondono a uno o più pattern.</li>
+        <li><strong>text</strong> – effettua una scansione del contenuto dei file e conta le occorrenze del pattern fornito.</li>
+    </ul>
+
+    <p><strong>Esempi:</strong></p>
+
+    <ul>
+        <li><code>glob</code> con pattern <code>*.component.ts</code> → conta tutti i file Angular component.</li>
+        <li><code>text</code> con pattern <code>let</code> → conta il numero di dichiarazioni variabili.</li>
+    </ul>
+
+    <hr>
+
+    <h3>5. Pattern</h3>
+    <p>
+        Il criterio principale di ricerca. Il formato dipende dal mode:
+    </p>
+
+    <ul>
+        <li><strong>glob</strong>: wildcard tipo <code>*.ts</code>, <code>**/*.html</code></li>
+        <li><strong>text</strong>: stringa o espressione regolare da cercare all’interno dei file</li>
+    </ul>
+
+    <p>
+        Se il mode è <em>glob</em>, ogni file che rispetta il pattern viene contato come 1 unità.
+        Se il mode è <em>text</em>, ogni occorrenza all’interno dei file contribuisce al conteggio.
+    </p>
+
+    <p><strong>Esempi:</strong></p>
+    <ul>
+        <li>glob pattern: <code>*.service.ts</code></li>
+        <li>text regex: <code>TODO:</code></li>
+    </ul>
+
+    <hr>
+
+    <h3>6. Include (opzionale)</h3>
+    <p>
+        Lista di wildcard aggiuntive che limitano l’ambito della scansione.
+        Viene utilizzata quando si vuole eseguire la ricerca solo su specifici tipi di file.
+    </p>
+
+    <p><strong>Funzionamento:</strong></p>
+    <ul>
+        <li>Se vuoto → tutte le estensioni sono considerate.</li>
+        <li>Se presente → la scansione avviene solo sui file che rispettano almeno uno dei pattern.</li>
+    </ul>
+
+    <p><strong>Esempio:</strong></p>
+    <pre>Include: *.ts, *.html
+Pattern (text): "let"
+→ vengono contate solo le occorrenze di "let" dentro file .ts o .html</pre>
+
+    <hr>
+
+    <h3>7. Valore (peso in gg/u)</h3>
+    <p>
+        Indica il valore in giornate/uomo attribuito a una singola unità rilevata per l’asset.
+        È il cuore della stima: ogni occorrenza dell’asset moltiplica questo valore.
+    </p>
+
+    <p><strong>Esempio:</strong></p>
+    <pre>50 file component × 0.5 gg/u = 25 gg/u</pre>
+
+    <hr>
+
+    <h3>8. Per (divisore)</h3>
+    <p>
+        Utilizzato per normalizzare il conteggio.  
+        Consente di dire: "ogni <code>per</code> elementi contano come 1 unità dell'asset".
+    </p>
+
+    <p><strong>Esempi:</strong></p>
+
+    <ul>
+        <li>
+            <code>per = 1</code>  
+            Ogni unità conta interamente.
+        </li>
+        <li>
+            <code>per = 10</code>  
+            Ogni gruppo di 10 elementi vale 1 unità nella stima.
+        </li>
+    </ul>
+
+    <pre>130 occorrenze, per = 10 → 13 unità × peso asset</pre>
+
+    <hr>
+
+    <h3>9. oneIfAny</h3>
+    <p>
+        Se abilitato, l’asset vale 1 unità anche se è presente un solo match.
+        Indipendentemente dal numero reale di elementi trovati.
+    </p>
+
+    <p><strong>Utilità:</strong>  
+        Ideale per categorie di elementi che richiedono lo stesso effort anche se presenti in quantità superiore a 1.
+    </p>
+
+    <p><strong>Esempio:</strong></p>
+    <pre>pattern: *.scss
+oneIfAny: true
+→ Se il progetto contiene almeno un file SCSS, conta esattamente 1 unità.</pre>
+
+    <hr>
+
+    <h3>10. Esempio completo di Asset</h3>
+
+    <pre>
+"components": {
+    "enabled": true,
+    "label": "Comp",
+    "value": 0.5,
+    "mode": "glob",
+    "pattern": ["*.component.ts"],
+    "include": ["*.ts"],
+    "per": 1,
+    "oneIfAny": false
+}
+    </pre>
+
+    <p><strong>Interpretazione:</strong></p>
+
+    <ul>
+        <li>Conta tutti i file <code>*.component.ts</code>.</li>
+        <li>Ogni file pesa <code>0.5 gg/u</code>.</li>
+        <li>Il conteggio non è condizionato da <code>per</code> (valore = 1).</li>
+        <li>Lo scanning è limitato ai soli file <code>.ts</code>.</li>
+        <li>Il totale sarà: <code>num_componenti × 0.5</code>.</li>
+    </ul>
+
+    <hr>
+
+    <h3>11. Considerazioni generali sulla modellazione dei pesi</h3>
+    <p>
+        Una configurazione efficace deve riflettere la realtà del progetto. Alcuni suggerimenti:
+    </p>
+
+    <ul>
+        <li>
+            Per asset con numerosità elevata e effort marginale, valutare <code>per</code> superiori a 1
+            per evitare sovrastima.
+        </li>
+        <li>
+            Per attività che richiedono effort costante, impostare <code>oneIfAny = true</code>.
+        </li>
+        <li>
+            Utilizzare nomi asset coerenti e stabili nel tempo per garantire confronti tra report diversi.
+        </li>
+        <li>
+            Usare etichette brevi ma significative nelle tabelle del report.
+        </li>
+    </ul>
+
+</div>

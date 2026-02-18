@@ -1,0 +1,170 @@
+/* ===========================================================
+   BASE STYLES
+   =========================================================== */
+
+body {
+    margin: 0;
+    padding: 40px;
+    font-family: "Inter", system-ui, sans-serif;
+    background: #f5f7f8;
+    color: #4D606E;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #4D606E;
+}
+
+a {
+    color: #5F7F65;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #4D606E;
+}
+
+/* ===========================================================
+   CONTAINER
+   =========================================================== */
+
+.content {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* ===========================================================
+   LIST WRAPPER CARD
+   =========================================================== */
+
+.list-card {
+    background: #ffffff;
+    border: 1px solid #D9E2E6;
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 4px rgba(77, 96, 110, 0.06);
+}
+
+.config-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===========================================================
+   CONFIG ITEM
+   =========================================================== */
+
+.config-item {
+    padding: 14px 4px;
+    border-bottom: 1px solid #E1E6E8;
+}
+
+.config-item:last-child {
+    border-bottom: none;
+}
+
+/* Riga principale: bottone + esegui */
+.config-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Bottone nome config (espandibile) */
+.config-name-btn {
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 15px;
+    color: #4D606E;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.config-name-btn:hover {
+    color: #5F7F65;
+    text-decoration: underline;
+}
+
+/* ===========================================================
+   RUN BUTTON
+   =========================================================== */
+
+.btn-run {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    background: #88C6C7;
+    color: white;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-run:hover {
+    background: #5F7F65;
+}
+
+/* ===========================================================
+   BACK BUTTON
+   =========================================================== */
+
+.btn-back {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: #D9E2E6;
+    color: #4D606E;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    background: #C4D1D6;
+}
+
+/* ===========================================================
+   EXPANDABLE JSON PANEL
+   =========================================================== */
+
+.config-json-panel {
+    margin-top: 10px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid #D9E2E6;
+    background: #F5F7F8;
+    display: none;
+}
+
+.config-json-panel.open {
+    display: block;
+}
+
+.config-json-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #8B9CA7;
+    margin-bottom: 8px;
+}
+
+.config-json-body {
+    margin: 0;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 12px;
+    color: #4D606E;
+    white-space: pre;
+    max-height: 260px;
+    overflow: auto;
+    line-height: 1.35;
+}

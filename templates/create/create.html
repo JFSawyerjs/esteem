@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Crea nuovo Config</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='create/create.css') }}">
+</head>
+
+<body>
+    <div class="content">
+
+        <h1>Crea nuovo Config</h1>
+        
+        <form method="POST">
+        
+            <!-- 1. GENERAL SETTINGS -->
+            <div class="section" id="sec-general">
+        
+                <div class="section-header">
+                    <h2>1. Impostazioni generali</h2>
+                    <p class="section-subtitle">
+                        Definisci i parametri fondamentali del profilo. Questa sezione viene validata automaticamente.
+                    </p>
+                </div>
+        
+                <div class="form-group">
+                    <label for="activeProfile">Nome profilo <span class="required">*</span></label>
+                    <input type="text" name="activeProfile" id="activeProfile" placeholder="es: profilo-angular" required>
+                    <small class="input-hint">Identifica univocamente il profilo che verrà attivato nel config.json.</small>
+                </div>
+        
+                <div class="form-group-inline">
+                    <div>
+                        <label for="separatorWidth">Separator width</label>
+                        <input type="number" name="separatorWidth" id="separatorWidth" value="120" min="60" max="200">
+                        <small class="input-hint">Larghezza delle tabelle di output (console/HTML).</small>
+                    </div>
+        
+                    <div>
+                        <label for="migrationFactor">Migration factor</label>
+                        <input type="number" step="0.1" name="migrationFactor" id="migrationFactor" value="1.0">
+                        <small class="input-hint">Moltiplicatore da applicare alla stima finale.</small>
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label for="teamSizes">Team sizes</label>
+                    <input type="text" id="teamSizes" name="teamSizes" placeholder="es: 1,2,3,5">
+                    <small class="input-hint">Lista di dimensioni team, separati da virgola.</small>
+                </div>
+        
+            </div>
+        
+        
+            <!-- 2. APPS -->
+            <div class="section" id="sec-apps">
+        
+                <div class="section-header">
+                    <h2>2. Applicazioni</h2>
+                    <p class="section-subtitle">
+                        Elenca le applicazioni da analizzare. Ogni voce deve includere un nome e un percorso valido.
+                    </p>
+                </div>
+        
+                <!-- Form di inserimento -->
+                <div class="form-group-inline">
+                    <div>
+                        <label for="app_name">Nome applicazione <span class="required">*</span></label>
+                        <input type="text" id="app_name" placeholder="es: Backoffice, CRM, Portal">
+                    </div>
+        
+                    <div>
+                        <label for="app_path">Percorso <span class="required">*</span></label>
+                        <input type="text" id="app_path" placeholder="es: C:/Projects/Portal">
+                    </div>
+        
+                    <div class="align-end">
+                        <button type="button" class="btn-add" onclick="addAppFromForm()">Aggiungi</button>
+                    </div>
+                </div>
+        
+                <!-- Tabella applicazioni -->
+                <table id="appsTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Percorso</th>
+                            <th style="width:60px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+        
+            </div>
+        
+        
+            <div class="section" id="sec-includes">
+        
+                <div class="section-header">
+                    <h2>3. Default Includes</h2>
+                    <p class="section-subtitle">
+                        Definisci i pattern wildcard dei file da includere automaticamente nella scansione.
+                    </p>
+                </div>
+        
+                <!-- Inline add row -->
+                <div class="form-inline">
+                    <input type="text" id="includeInput" placeholder="es: *.ts">
+                    <button type="button" class="btn-add mt-3" onclick="addInclude()">Aggiungi</button>
+                </div>
+        
+                <!-- Table of includes -->
+                <table id="includesTable" class="mt-3">
+                    <thead>
+                        <tr>
+                            <th>Pattern</th>
+                            <th style="width: 60px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+        
+            </div>
+        
+        
+            <!-- 4. ASSET / WEIGHTS -->
+            <div class="section" id="sec-weights">
+
+                <div class="section-header">
+                    <h2>4. Asset / Weights</h2>
+                    <p class="section-subtitle">
+                        Definisci gli asset che verranno conteggiati dallo scanner. Ogni asset descrive *come*
+                        contare un tipo di elemento e *quanto* vale in giorni/uomo.
+                    </p>
+                </div>
+
+                <!-- FORM INSERIMENTO NUOVO ASSET -->
+                <div class="form-group asset-form">
+
+                    <!-- Prima riga: nome, label, enabled -->
+                    <div class="form-group-inline">
+                        <div>
+                            <label for="w_name">Nome asset <span class="required">*</span></label>
+                            <input type="text" id="w_name" placeholder="es: components">
+                            <small class="input-hint">Chiave tecnica nel config.json</small>
+                        </div>
+
+                        <div>
+                            <label for="w_label">Label</label>
+                            <input type="text" id="w_label" placeholder="es: Comp">
+                            <small class="input-hint">Etichetta abbreviata nei report</small>
+                        </div>
+
+                        <div>
+                            <label for="w_enabled">Enabled</label>
+                            <select id="w_enabled">
+                                <option value="true" selected>Sì</option>
+                                <option value="false">No</option>
+                            </select>
+                            <small class="input-hint">L’asset è attivo?</small>
+                        </div>
+                        <div>
+                            <label for="w_per">Dividi per (per)</label>
+                            <input type="number" id="w_per" value="1" min="1">
+                            <small class="input-hint">Divide il conteggio finale</small>
+                        </div>
+                    </div>
+
+                    <!-- Seconda riga: mode, valore -->
+                    <div class="form-group-inline">
+                        <div>
+                            <label for="w_pattern">Pattern</label>
+                            <input type="text" id="w_pattern" placeholder="es: *.component.ts o regex">
+                            <small class="input-hint">
+                                Wildcard per glob, regex per text
+                            </small>
+                        </div>
+
+                        <div>
+                            <label for="w_value">Peso (gg/u)</label>
+                            <input type="number" id="w_value" step="0.1" placeholder="es: 0.5">
+                            <small class="input-hint">Stima per singola unità</small>
+                        </div>
+                    </div>
+
+                    <!-- Terza riga: mode, include -->
+                    <div class="form-group-inline">
+                        <div>
+                            <label for="w_mode">Mode</label>
+                            <select id="w_mode">
+                                <option value="glob">glob</option>
+                                <option value="text">text</option>
+                            </select>
+                            <small class="input-hint">Metodo di conteggio</small>
+                        </div>
+
+                        <div>
+                            <label for="w_include">Include (opzionale)</label>
+                            <input type="text" id="w_include" placeholder="*.ts, *.html">
+                            <small class="input-hint">
+                                Lista di wildcard separati da virgola
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Quarta riga: oneIfAny -->
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="w_oneIfAny">
+                            oneIfAny — Se esiste almeno un match, conta 1
+                        </label>
+                    </div>
+
+                    <!-- Bottone -->
+                    <button type="button" class="btn-add mt-2" onclick="addWeightCard()">Aggiungi asset</button>
+                </div>
+
+                <!-- TABELLA ASSET DEFINITI -->
+                <table id="weightsTable" class="mt-3">
+                    <thead>
+                        <tr>
+                            <th>Enabled</th>
+                            <th>Nome</th>
+                            <th>Label</th>
+                            <th>Mode</th>
+                            <th>Valore</th>
+                            <th>Pattern</th>
+                            <th>Include</th>
+                            <th>Per</th>
+                            <th>oneIfAny</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+
+                <button type="button" class="btn-link mt-3" onclick="document.getElementById('weightsHelp').classList.toggle('open')">
+                    Guida pesi
+                </button>
+
+                <div id="weightsHelp" class="collapsible-panel">
+                    {% include "create/help_weights.html" %}
+                </div>
+            </div>
+        
+            <!-- 5. COMPLEXITY -->
+            <div class="section" id="sec-complexity">
+        
+                <div class="section-header">
+                    <h2>5. Complexity (opzionale)</h2>
+                    <p class="section-subtitle">
+                        Configura un indice di complessità basato sul rapporto tra due asset.  
+                        Se lasci vuoti Numerator e Denominator, la sezione verrà ignorata.
+                    </p>
+                </div>
+        
+                <!-- RATIO -->
+                <div class="form-group-inline">
+                    <div>
+                        <label for="complexNum">Numerator</label>
+                        <select id="complexNum">
+                            <option value="">--</option>
+                        </select>
+                        <small class="input-hint">Asset usato come numeratore del rapporto.</small>
+                    </div>
+        
+                    <div>
+                        <label for="complexDen">Denominator</label>
+                        <select id="complexDen">
+                            <option value="">--</option>
+                        </select>
+                        <small class="input-hint">Asset usato come denominatore del rapporto.</small>
+                    </div>
+                </div>
+        
+                <!-- THRESHOLDS -->
+                <div class="form-group">
+                    <h3>Soglie di classificazione</h3>
+                    <small class="input-hint">
+                        Definisci etichette e condizioni che classificano la complessità in base al valore del rapporto.
+                    </small>
+        
+                    <table id="thresholdsTable">
+                        <thead>
+                            <tr>
+                                <th>Label</th>
+                                <th>Operatore</th>
+                                <th>Max</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+        
+                    <button type="button" class="btn-add mt-3" onclick="addThresholdRow()">Aggiungi soglia</button>
+                </div>
+        
+            </div>
+        
+        
+            <!-- 6. ACTIONS -->
+            <div class="section" id="sec-actions">
+        
+                <div class="section-header">
+                    <h2>6. Azioni finali</h2>
+                    <p class="section-subtitle">
+                        Una volta completate e validate tutte le sezioni precedenti, puoi generare e salvare il file di configurazione.
+                    </p>
+                </div>
+        
+                <!-- ACTION BAR -->
+                <div class="action-bar">
+                    <button type="submit" id="saveBtn" class="btn-primary" disabled>
+                        Salva Configurazione
+                    </button>
+                </div>
+        
+            </div>
+        
+        
+        </form>
+        
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='create/create.js') }}"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Output Estimator – {{ name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='run/run.css') }}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <header class="hero">
+        <h1 class="hero-title">Risultato Estimator</h1>
+        <p class="hero-subtitle">
+            File eseguito: <strong>{{ name }}</strong>
+        </p>
+    </header>
+
+    <!-- STDOUT -->
+    <section class="card">
+        <div class="card-head">
+            <h2>STDOUT</h2>
+        </div>
+        <pre class="console std">{{ stdout }}</pre>
+    </section>
+
+    <!-- STDERR (solo se contiene testo non vuoto) -->
+    {% if stderr.strip() %}
+    <section class="card">
+        <div class="card-head">
+            <h2>STDERR</h2>
+        </div>
+        <pre class="console err">{{ stderr }}</pre>
+    </section>
+    {% endif %}
+
+    <!-- REPORT HTML GENERATO -->
+    <section class="card">
+        <div class="card-head">
+            <h2>Report HTML generato</h2>
+        </div>
+
+        {% if report_html %}
+            <div class="report-viewer">
+                {{ report_html|safe }}
+            </div>
+        {% else %}
+            <p class="no-report">⚠ Nessun report HTML trovato.</p>
+        {% endif %}
+    </section>
+
+    <div class="actions">
+        <a href="{{ url_for('list_configs') }}" class="btn-secondary">← Torna all’elenco</a>
+        <a href="/report" target="_blank" class="btn-secondary">Apri report HTML</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+{
+  "activeProfile": "angular-migration",
+
+  "apps": [
+    { "name": "fondi-self", "path": "../fondi-self-funnels" }
+  ],
+
+  "profiles": {
+    "angular-migration": {
+      "defaultIncludes": ["*.ts", "*.html", "*.scss"],
+
+      "palette": ["Green", "Cyan", "Yellow", "Blue", "Magenta", "Gray"],
+
+      "teamSizes": [1, 2, 3, 4],
+
+      "migrationTo": {
+        "factor": 1.3
+      },
+
+      "weights": {
+        "Components": {
+          "enabled": true,
+          "label": "COMP",
+          "desc": "Componenti Angular",
+          "value": 0.6,
+          "mode": "glob",
+          "pattern": ["*.component.ts"],
+          "per": 1
+        },
+
+        "Services": {
+          "enabled": true,
+          "label": "SERV",
+          "desc": "Servizi Angular",
+          "value": 0.5,
+          "mode": "glob",
+          "pattern": ["*.service.ts"],
+          "per": 1
+        },
+
+        "Modules": {
+          "enabled": true,
+          "label": "MOD",
+          "desc": "Moduli Angular (NgModule)",
+          "value": 0.4,
+          "mode": "glob",
+          "pattern": ["*.module.ts"],
+          "per": 1
+        },
+
+        "Routes": {
+          "enabled": true,
+          "label": "ROUT",
+          "desc": "Definizioni di routing",
+          "value": 0.3,
+          "mode": "text",
+          "include": ["*.ts"],
+          "pattern": ["RouterModule\\.for(Root|Child)"],
+          "per": 1
+        },
+
+        "Templates": {
+          "enabled": true,
+          "label": "TPL",
+          "desc": "Template HTML dei componenti",
+          "value": 0.2,
+          "mode": "glob",
+          "pattern": ["*.component.html"],
+          "per": 1
+        },
+
+        "Styles": {
+          "enabled": true,
+          "label": "CSS",
+          "desc": "Foglio di stile dei componenti",
+          "value": 0.1,
+          "mode": "glob",
+          "pattern": ["*.component.scss", "*.component.css"],
+          "per": 1
+        }
+      },
+
+      "complexity": {
+        "ratio": {
+          "numerator": "Components",
+          "denominator": "Services"
+        },
+        "thresholds": [
+          { "label": "Bassa", "op": "<", "max": 1.0 },
+          { "label": "Media", "op": "<", "max": 2.0 },
+          { "label": "Alta", "op": ">=", "max": 2.0 }
+        ]
+      }
+    }
+  },
+
+  "ui": {
+    "separatorWidth": 120
+  }
+}

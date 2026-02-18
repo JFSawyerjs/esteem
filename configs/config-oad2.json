@@ -1,0 +1,317 @@
+{
+  "activeProfile": "prova oad",
+  "ui": {
+    "separatorWidth": 120
+  },
+  "apps": [
+    {
+      "name": "gestione-proposte",
+      "path": "C:/Users/luca.albenga/poste/feu-paco-step-gestione-proposte/frontend/feu-paco-step-gestione-proposte-ws/projects/feu-paco-step-gestione-proposte/src"
+    },
+    {
+      "name": "step-browserconsulenze",
+      "path": "C:/Users/luca.albenga/poste/feu-paco-step-browserconsulenze/frontend/feu-paco-step-browserconsulenze-ws/projects/feu-paco-step-browserconsulenze/src"
+    },
+    {
+      "name": "step-compila-documenti",
+      "path": "C:/Users/luca.albenga/poste/feu-paco-step-compila-documenti/frontend/feu-paco-step-compila-documenti-ws/projects/feu-paco-step-compila-documenti/src"
+    },
+    {
+      "name": "step-completa-dati-prodotto",
+      "path": "C:/Users/luca.albenga/poste/feu-paco-step-completa-dati-prodotto/frontend/feu-paco-step-completa-dati-prodotto-ws/projects/feu-paco-step-completa-dati-prodotto/src"
+    },
+     {
+      "name": "step-configura-fondo",
+      "path": "C:/Users/luca.albenga/poste/feu-paco-step-configura-fondo/frontend/feu-paco-step-configura-fondo-ws/projects/feu-paco-step-configura-fondo/src"
+    },
+     {
+      "name": "step-pagamento",
+      "path": "C:/Users/luca.albenga/poste/feu-paco-step-pagamento/frontend/feu-paco-step-pagamento-ws/projects/feu-paco-step-pagamento/src"
+    },
+     {
+      "name": "paco-documents-upload-digital-ui",
+      "path": "C:/Users/luca.albenga/poste/paco-documents-upload-digital-ui/frontend/paco-documents-upload-digital-ui-ws/projects/paco-documents-upload-digital-ui/src"
+    }
+  ],
+  "profiles": {
+    "prova oad": {
+      "defaultIncludes": [
+        "*.ts",
+        "*.html"
+      ],
+      "palette": [
+        "Green",
+        "Cyan",
+        "Yellow"
+      ],
+      "teamSizes": [
+        1
+      ],
+      "migrationTo": {
+        "factor": 1.2
+      },
+      "weights": {
+        "variabile": {
+          "enabled": true,
+          "label": "n variabili",
+          "value": 0.2,
+          "mode": "text",
+          "pattern": [
+            "let"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "components": {
+          "enabled": true,
+          "label": "n components",
+          "value": 0.5,
+          "mode": "glob",
+          "pattern": [
+            "*.component.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "routes": {
+          "enabled": true,
+          "label": "Numero di rotte definite (component o loadChildren)",
+          "value": 0.6,
+          "mode": "routes",
+          "pattern": [],
+          "include": [
+            "*-routing.module.ts"
+          ],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "component": {
+          "enabled": true,
+          "label": "Component TS (logica)",
+          "value": 1.2,
+          "mode": "glob",
+          "pattern": [
+            "*.component.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "componentHtml": {
+          "enabled": false,
+          "label": "HTML template del component",
+          "value": 0.4,
+          "mode": "glob",
+          "pattern": [
+            "*.component.html"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "componentStyle": {
+          "enabled": false,
+          "label": "CSS/SCSS del component",
+          "value": 0.2,
+          "mode": "glob",
+          "pattern": [
+            "*.component.scss"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "directive": {
+          "enabled": true,
+          "label": "Directive / behavior custom",
+          "value": 0.6,
+          "mode": "glob",
+          "pattern": [
+            "*.directive.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "pipe": {
+          "enabled": true,
+          "label": "Pipe (trasformazione dati)",
+          "value": 0.3,
+          "mode": "glob",
+          "pattern": [
+            "*.pipe.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "service": {
+          "enabled": true,
+          "label": "Service generico",
+          "value": 0.6,
+          "mode": "glob",
+          "pattern": [
+            "*.service.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "resolver": {
+          "enabled": false,
+          "label": "Resolver per routing",
+          "value": 0.8,
+          "mode": "glob",
+          "pattern": [
+            "*.resolver.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "guard": {
+          "enabled": true,
+          "label": "Guard (route protection)",
+          "value": 0.8,
+          "mode": "glob",
+          "pattern": [
+            "*.guard.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "interceptor": {
+          "enabled": true,
+          "label": "HTTP interceptor",
+          "value": 1.0,
+          "mode": "glob",
+          "pattern": [
+            "*.interceptor.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "module": {
+          "enabled": true,
+          "label": "Modulo Angular",
+          "value": 0.5,
+          "mode": "glob",
+          "pattern": [
+            "*.module.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "routingModule": {
+          "enabled": false,
+          "label": "Routing module",
+          "value": 0.6,
+          "mode": "glob",
+          "pattern": [
+            "*-routing.module.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "stateManagement": {
+          "enabled": false,
+          "label": "NgRx (azioni, reducer, effetti, selectors)",
+          "value": 1.5,
+          "mode": "text",
+          "pattern": [
+            "createReducer",
+            "createAction",
+            "createEffect",
+            "createSelector",
+            "StoreModule.forRoot",
+            "StoreModule.forFeature",
+            "EffectsModule.forRoot",
+            "EffectsModule.forFeature"
+          ],
+          "include": [
+            "*.ts"
+          ],
+          "per": 4,
+          "oneIfAny": false
+        },
+
+        "formReactive": {
+          "enabled": true,
+          "label": "Reactive forms complessi (FormGroup, FormBuilder)",
+          "value": 0.7,
+          "mode": "text",
+          "pattern": [
+            "FormGroup",
+            "FormBuilder"
+          ],
+          "include": [
+            "*.ts"
+          ],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "config": {
+          "enabled": false,
+          "label": "Configurazioni / environment",
+          "value": 0.3,
+          "mode": "glob",
+          "pattern": [
+            "environment*.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "assets": {
+          "enabled": false,
+          "label": "Asset statici / file i18n",
+          "value": 0.2,
+          "mode": "glob",
+          "pattern": [
+            "src/assets/**/*"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "testUnit": {
+          "enabled": false,
+          "label": "Test unitari",
+          "value": 0.4,
+          "mode": "glob",
+          "pattern": [
+            "*.spec.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+        "testE2E": {
+          "enabled": false,
+          "label": "Test end-to-end (Cypress / Protractor)",
+          "value": 0.7,
+          "mode": "glob",
+          "pattern": [
+            "*.e2e-spec.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        }
+      },
+      "complexity": null
+    }
+  }
+}

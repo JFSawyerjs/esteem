@@ -1,0 +1,47 @@
+{
+    "activeProfile": "prova oad 3",
+    "ui": {
+        "separatorWidth": 120
+    },
+    "apps": [
+        {
+            "name": "oad 1",
+            "path": "C:\\Users\\luca.albenga\\poste\\feu-browser-fondi\\frontend\\browser-fondi-ws\\projects\\browser-fondi\\src"
+        }
+    ],
+    "profiles": {
+        "prova oad 3": {
+            "defaultIncludes": [
+                "*.ts",
+                "*.html"
+            ],
+            "palette": [
+                "Green",
+                "Cyan",
+                "Yellow"
+            ],
+            "teamSizes": [
+                1,
+                2
+            ],
+            "migrationTo": {
+                "factor": 1.2
+            },
+            "weights": {
+                "var": {
+                    "enabled": true,
+                    "label": "var",
+                    "value": 0.2,
+                    "mode": "text",
+                    "pattern": [
+                        "let"
+                    ],
+                    "include": [],
+                    "per": 1,
+                    "oneIfAny": false
+                }
+            },
+            "complexity": null
+        }
+    }
+}

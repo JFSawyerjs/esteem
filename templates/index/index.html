@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Estimator Web</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index/index.css') }}">
+</head>
+
+<body>
+<div class="content">
+
+    <h1>Estimator Web</h1>
+    
+    <div class="card-grid">
+    
+        <a href="{{ url_for('create_config') }}" class="nav-card">
+            <h2>Crea nuovo profilo</h2>
+            <p>Genera un nuovo file di configurazione tramite la UI guidata.</p>
+        </a>
+    
+        <a href="{{ url_for('list_configs') }}" class="nav-card">
+            <h2>Profili salvati</h2>
+            <p>Consulta, gestisci ed esegui i file di configurazione esistenti.</p>
+        </a>
+    
+    </div>
+</div>
+
+</body>
+</html>
+

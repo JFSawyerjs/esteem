@@ -1,0 +1,300 @@
+{
+  "activeProfile": "angular7-to-20",
+  "ui": {
+    "separatorWidth": 120
+  },
+  "apps": [
+    {
+      "name": "Namecheck",
+      "path": "C:\\Nexi-CBI\\monitoring-reporting-web-ui-nexi\\monitoring\\namecheck\\src"
+    },
+    {
+      "name": "Admin",
+      "path": "C:\\Nexi-CBI\\monitoring-reporting-web-ui-nexi\\admin\\src"
+    }
+  ],
+  "profiles": {
+    "angular7-to-20": {
+      "defaultIncludes": [
+        "**/*.ts",
+        "**/*.html",
+        "**/*.scss"
+      ],
+      "palette": [
+        "Green",
+        "Cyan",
+        "Yellow"
+      ],
+      "teamSizes": [1, 2, 3, 5],
+      "migrationTo": {
+        "factor": 1.3
+      },
+      "weights": {
+        "components": {
+          "enabled": true,
+          "label": "Components",
+          "desc": "Componenti Angular (logica + template da migrare a versione 20 e potenzialmente a standalone)",
+          "value": 0.5,
+          "mode": "glob",
+          "pattern": [
+            "**/*.component.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "smartComponents": {
+          "enabled": true,
+          "label": "Smart Components",
+          "desc": "Componenti contenitori con logica complessa (pattern *container/presenter*). In genere richiedono più refactoring (state management, RxJS, router, ecc.)",
+          "value": 0.8,
+          "mode": "text",
+          "pattern": [
+            "@ngrx/store",
+            "HttpClient",
+            "subscribe(",
+            "router.navigate"
+          ],
+          "include": [
+            "**/*.component.ts"
+          ],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "modules": {
+          "enabled": true,
+          "label": "NgModules",
+          "desc": "Moduli Angular classici, da valutare per passaggio progressivo a standalone / semplificazione struttura",
+          "value": 0.7,
+          "mode": "glob",
+          "pattern": [
+            "**/*.module.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "services": {
+          "enabled": true,
+          "label": "Services",
+          "desc": "Servizi applicativi e di dominio (dependency injection, logica di business, chiamate http)",
+          "value": 0.6,
+          "mode": "glob",
+          "pattern": [
+            "**/*.service.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "httpCalls": {
+          "enabled": true,
+          "label": "HTTP calls",
+          "desc": "Punti di integrazione HTTP da verificare (error handling, retry, typed responses, interceptors)",
+          "value": 0.2,
+          "mode": "text",
+          "pattern": [
+            "this.http.get(",
+            "this.http.post(",
+            "this.http.put(",
+            "this.http.delete("
+          ],
+          "include": [
+            "**/*.ts"
+          ],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "routingConfigs": {
+          "enabled": true,
+          "label": "Routing configs",
+          "desc": "Definizioni di route (lazy loading, guard, resolver) da riallineare alle best practice Angular 20",
+          "value": 0.5,
+          "mode": "text",
+          "pattern": [
+            "RouterModule.forRoot",
+            "RouterModule.forChild",
+            "canActivate:",
+            "canLoad:"
+          ],
+          "include": [
+            "**/*.ts"
+          ],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "templatesHtml": {
+          "enabled": true,
+          "label": "Templates HTML",
+          "desc": "Template Angular (binding, direttive, pipe). Richiedono revisione per nuove sintassi, controlli e direttive",
+          "value": 0.25,
+          "mode": "glob",
+          "pattern": [
+            "**/*.component.html"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "pipes": {
+          "enabled": true,
+          "label": "Pipes",
+          "desc": "Pipes custom da verificare (pure/impure, performance, compatibilità)",
+          "value": 0.4,
+          "mode": "glob",
+          "pattern": [
+            "**/*.pipe.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "directives": {
+          "enabled": true,
+          "label": "Directives",
+          "desc": "Direttive strutturali / attributo custom che potrebbero influire sul refactoring template",
+          "value": 0.4,
+          "mode": "glob",
+          "pattern": [
+            "**/*.directive.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "formsTemplateDriven": {
+          "enabled": true,
+          "label": "Template-driven forms",
+          "desc": "Form template-driven (ngModel) da adeguare / migrare verso reactive forms dove necessario",
+          "value": 0.35,
+          "mode": "text",
+          "pattern": [
+            "ngModel"
+          ],
+          "include": [
+            "**/*.html"
+          ],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "formsReactive": {
+          "enabled": true,
+          "label": "Reactive forms",
+          "desc": "Reactive forms (FormBuilder, FormGroup, FormControl) da verificare rispetto ai cambi di API e best practice",
+          "value": 0.25,
+          "mode": "text",
+          "pattern": [
+            "FormBuilder",
+            "FormGroup",
+            "FormControl",
+            "formControlName"
+          ],
+          "include": [
+            "**/*.ts",
+            "**/*.html"
+          ],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "rxjsDeprecated": {
+          "enabled": true,
+          "label": "RxJS deprecated",
+          "desc": "Pattern RxJS legacy (pipe, operatori, subscribe annidati) da modernizzare",
+          "value": 0.3,
+          "mode": "text",
+          "pattern": [
+            ".subscribe(",
+            "map(",
+            "switchMap(",
+            "mergeMap(",
+            "flatMap("
+          ],
+          "include": [
+            "**/*.ts"
+          ],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "deprecatedApiUsage": {
+          "enabled": true,
+          "label": "Deprecated Angular APIs",
+          "desc": "Utilizzo di API Angular deprecate o modificate tra v7 e v20 (old Http, Renderer, ViewChild senza static, ecc.)",
+          "value": 1.0,
+          "mode": "text",
+          "pattern": [
+            "Renderer",
+            "Renderer2",
+            "HttpModule",
+            "entryComponents:",
+            "@ViewChild("
+          ],
+          "include": [
+            "**/*.ts"
+          ],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "unitTests": {
+          "enabled": true,
+          "label": "Unit test spec",
+          "desc": "Spec di test (Jasmine/Karma) da adeguare alle nuove configurazioni e tool di test",
+          "value": 0.2,
+          "mode": "glob",
+          "pattern": [
+            "**/*.spec.ts"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": false
+        },
+
+        "styles": {
+          "enabled": true,
+          "label": "Styles",
+          "desc": "File di stile associati ai componenti (potenziali impatti da nuovi layout, design system, theming)",
+          "value": 0.1,
+          "mode": "glob",
+          "pattern": [
+            "**/*.scss",
+            "**/*.sass",
+            "**/*.css"
+          ],
+          "include": [],
+          "per": 10,
+          "oneIfAny": false
+        },
+
+        "configFiles": {
+          "enabled": true,
+          "label": "Config & build",
+          "desc": "File di configurazione Angular/TypeScript/build (tsconfig, angular.json, etc.) da aggiornare una tantum",
+          "value": 0.8,
+          "mode": "glob",
+          "pattern": [
+            "angular.json",
+            "tsconfig.json",
+            "tsconfig.app.json",
+            "tsconfig.spec.json"
+          ],
+          "include": [],
+          "per": 1,
+          "oneIfAny": true
+        }
+      },
+      "complexity": null
+    }
+  }
+}

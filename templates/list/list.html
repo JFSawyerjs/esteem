@@ -1,0 +1,126 @@
+<!-- <!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Config salvati</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='list/list.css') }}">
+</head>
+
+<body>
+<div class="content">
+
+    <h1>Configurazioni salvate</h1>
+
+    <div class="list-card">
+        <ul class="config-list">
+            {% for f in files %}
+            <li class="config-item">
+                <span class="config-name">{{ f }}</span>
+
+                <a class="btn-run" href="{{ url_for('run_estimator', name=f) }}">
+                    Esegui →
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a class="btn-back" href="{{ url_for('index') }}">← Indietro</a>
+
+</div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Config salvati</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='list/list.css') }}">
+</head>
+
+<body>
+<div class="content">
+
+    <h1>Configurazioni salvate</h1>
+
+    <div class="list-card">
+        <ul class="config-list">
+            {% for f in files %}
+            <li class="config-item">
+                <div class="config-row">
+                    <!-- bottone che apre/chiude il pannello JSON -->
+                    <button type="button"
+                            class="config-name-btn"
+                            data-config="{{ f }}">
+                        {{ f }}
+                    </button>
+
+                    <a class="btn-run" href="{{ url_for('run_estimator', name=f) }}">
+                        Esegui →
+                    </a>
+                </div>
+
+                <!-- pannello espandibile con il JSON -->
+                <div class="config-json-panel" data-config-panel="{{ f }}">
+                    <div class="config-json-header">
+                        <span>Dettaglio JSON</span>
+                        <span class="config-json-status">Clicca per caricare…</span>
+                    </div>
+                    <pre class="config-json-body">{}</pre>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a class="btn-back" href="{{ url_for('index') }}">← Indietro</a>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll(".config-name-btn");
+
+    items.forEach(btn => {
+        btn.addEventListener("click", async () => {
+            const name = btn.dataset.config;
+            const panel = document.querySelector(`.config-json-panel[data-config-panel="${name}"]`);
+            const statusEl = panel.querySelector(".config-json-status");
+            const pre = panel.querySelector(".config-json-body");
+
+            // toggle visibilità
+            const isOpen = panel.classList.contains("open");
+            if (isOpen) {
+                panel.classList.remove("open");
+                return;
+            }
+
+            // se non abbiamo ancora caricato questo JSON, chiamiamo l'API
+            if (!panel.dataset.loaded) {
+                statusEl.textContent = "Caricamento…";
+
+                try {
+                    const resp = await fetch(`/configs/${encodeURIComponent(name)}/json`);
+                    if (!resp.ok) {
+                        statusEl.textContent = "Errore nel caricamento";
+                        pre.textContent = `Errore HTTP ${resp.status}`;
+                    } else {
+                        const data = await resp.json();
+                        pre.textContent = JSON.stringify(data, null, 2);
+                        statusEl.textContent = "Caricato";
+                        panel.dataset.loaded = "1";
+                    }
+                } catch (err) {
+                    statusEl.textContent = "Errore nel caricamento";
+                    pre.textContent = "Errore: " + err;
+                }
+            }
+
+            panel.classList.add("open");
+        });
+    });
+});
+</script>
+
+</body>
+</html>

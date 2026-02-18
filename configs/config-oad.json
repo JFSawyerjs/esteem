@@ -1,0 +1,94 @@
+{
+  "migrationTo": {
+    "target": "react",
+    "factor": 1.05
+  },
+  "apps": [
+     "../feu-paco-step-gestione-proposte/frontend/feu-paco-step-gestione-proposte-ws/projects/feu-paco-step-gestione-proposte",
+    "../feu-paco-step-browserconsulenze/frontend/feu-paco-step-browserconsulenze-ws/projects/feu-paco-step-browserconsulenze",
+    "../feu-paco-step-compila-documenti/frontend/feu-paco-step-compila-documenti-ws/projects/feu-paco-step-compila-documenti",
+    "../feu-paco-step-completa-dati-prodotto/frontend/feu-paco-step-completa-dati-prodotto-ws/projects/feu-paco-step-completa-dati-prodotto",
+    "../feu-paco-step-configura-fondo/frontend/feu-paco-step-configura-fondo-ws/projects/feu-paco-step-configura-fondo",
+    "../feu-paco-step-pagamento/frontend/feu-paco-step-pagamento-ws/projects/feu-paco-step-pagamento",
+    "../paco-documents-upload-digital-ui/frontend/paco-documents-upload-digital-ui-ws/projects/paco-documents-upload-digital-ui"
+  ],
+  "languages": {
+    "angular": { "enabled": true  },
+    "java":    { "enabled": false },
+    "react":   { "enabled": false }
+  },
+  "weights": {
+    "angular": {
+      "routes":           {
+                            "enabled": true,
+                            "value": 0.6,
+                            "mode": "routes",
+                            "include": ["*-routing.module.ts"],
+                            "desc": "Numero di rotte definite (component o loadChildren)"
+                          },
+      "component":        { "enabled": true,  "value": 1.2,  "desc": "Component TS (logica)", "pattern": "*.component.ts" },
+      "componentHtml":    { "enabled": false,  "value": 0.4,  "desc": "HTML template del component", "pattern": "*.component.html" },
+      "componentStyle":   { "enabled": false,  "value": 0.2,  "desc": "CSS/SCSS del component", "pattern": "*.component.scss" },
+      "directive":        { "enabled": true,  "value": 0.6,  "desc": "Directive / behavior custom", "pattern": "*.directive.ts" },
+      "pipe":             { "enabled": true,  "value": 0.3,  "desc": "Pipe (trasformazione dati)", "pattern": "*.pipe.ts" },
+      "service":          { "enabled": true,  "value": 0.6,  "desc": "Service generico", "pattern": "*.service.ts" },
+      "resolver":         { "enabled": false, "value": 0.8,  "desc": "Resolver per routing", "pattern": "*.resolver.ts" },
+      "guard":            { "enabled": true,  "value": 0.8,  "desc": "Guard (route protection)", "pattern": "*.guard.ts" },
+      "interceptor":      { "enabled": true,  "value": 1.0,  "desc": "HTTP interceptor", "pattern": "*.interceptor.ts" },
+      "module":           { "enabled": true,  "value": 0.5,  "desc": "Modulo Angular", "pattern": "*.module.ts" },
+      "routingModule":    { "enabled": false,  "value": 0.6,  "desc": "Routing module", "pattern": "*-routing.module.ts" },
+      "stateManagement":  {
+                            "enabled": false,
+                            "value": 1.5,
+                            "mode": "text",
+                            "include": ["*.ts"],
+                            "pattern": [
+                              "createReducer",
+                              "createAction",
+                              "createEffect",
+                              "createSelector",
+                              "StoreModule.forRoot",
+                              "StoreModule.forFeature",
+                              "EffectsModule.forRoot",
+                              "EffectsModule.forFeature"
+                            ],
+                            "per": 4,
+                            "desc": "NgRx (azioni, reducer, effetti, selectors)"
+                          },
+      "formReactive":     { "enabled": true,
+                            "value": 0.7,
+                            "mode": "text",
+                            "include": ["*.ts"],
+                            "pattern": ["FormGroup", "FormBuilder"],
+                            "desc": "Reactive forms complessi (FormGroup, FormBuilder)"
+                          },
+      "config":           { "enabled": false, "value": 0.3,  "desc": "Configurazioni / environment", "pattern": "environment*.ts" },
+      "assets":           { "enabled": false, "value": 0.2,  "desc": "Asset statici / file i18n", "pattern": "src/assets/**/*" },
+      "testUnit":         { "enabled": false, "value": 0.4,  "desc": "Test unitari", "pattern": "*.spec.ts" },
+      "testE2E":          { "enabled": false, "value": 0.7,  "desc": "Test end-to-end (Cypress / Protractor)", "pattern": "*.e2e-spec.ts" }
+    },
+    "java": {
+      "class":          { "enabled": true, "value": 1.0,  "desc": "Classe Java generica", "pattern": "*.java" },
+      "interface":      { "enabled": true, "value": 0.8,  "desc": "Interfaccia", "pattern": "*.java" },
+      "enum":           { "enabled": true, "value": 0.4,  "desc": "Enum", "pattern": "*.java" },
+      "pojo":           { "enabled": true, "value": 0.5,  "desc": "POJO / DTO semplice (getter/setter, Lombok)", "pattern": "*Dto.java" },
+      "entity":         { "enabled": true, "value": 0.9,  "desc": "Entity JPA / ORM", "pattern": "*Entity.java" },
+      "repository":     { "enabled": true, "value": 1.0,  "desc": "Repository Spring/JPA", "pattern": "*Repository.java" },
+      "service":        { "enabled": true, "value": 1.1,  "desc": "Service con logica business", "pattern": "*Service.java" },
+      "controller":     { "enabled": true, "value": 1.2,  "desc": "Controller REST/MVC", "pattern": "*Controller.java" },
+      "filter":         { "enabled": true, "value": 0.8,  "desc": "Servlet Filter / Request Filter", "pattern": "*Filter.java" },
+      "interceptor":    { "enabled": true, "value": 0.9,  "desc": "Interceptor (Spring/Hibernate)", "pattern": "*Interceptor.java" },
+      "config":         { "enabled": true, "value": 0.7,  "desc": "Classe di configurazione (Spring @Configuration, XML)", "pattern": "*Config.java" },
+      "exception":      { "enabled": true, "value": 0.5,  "desc": "Eccezione custom", "pattern": "*Exception.java" },
+      "utility":        { "enabled": true, "value": 0.6,  "desc": "Classe helper/utility", "pattern": "*Utils.java" },
+      "testUnit":       { "enabled": true, "value": 0.5,  "desc": "Test unitario JUnit/Mockito", "pattern": "*Test.java" },
+      "testIntegration":{ "enabled": true, "value": 0.8,  "desc": "Test di integrazione (SpringBootTest, DB, API)", "pattern": "*IT.java" },
+      "testE2E":        { "enabled": true, "value": 1.0,  "desc": "Test end-to-end (Selenium, Cucumber, ecc.)", "pattern": "*E2E.java" },
+      "build":          { "enabled": true, "value": 0.4,  "desc": "Script build (Maven/Gradle XML o .gradle)", "pattern": "pom.xml|build.gradle" },
+      "resources":      { "enabled": true, "value": 0.3,  "desc": "Risorse statiche (application.yml/properties, i18n)", "pattern": "src/main/resources/**/*" }
+    },
+    "react": {
+    }
+  }
+}
+
